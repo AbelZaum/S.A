@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lista de Tipos de Equipamento</title>
+        <link rel="stylesheet" href="css/css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <h1>Tipos de Equipamento</h1>
+        <a href="/tipos-equipamentos/novo">Cadastrar Novo Tipo</a>
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Descrição</th>
+                <th>Ações</th>
+            </tr>
+            <tr th:each="tipo : ${tipos}">
+                <td th:text="${tipo.id}"></td>
+                <td th:text="${tipo.descricao}"></td>
+                <td>
+                    <a th:href="@{'/tipos-equipamentos/editar/' + ${tipo.id}}">Editar</a>
+                    <a th:href="@{'/tipos-equipamentos/excluir/' + ${tipo.id}}" onclick="return confirm('Deseja excluir este tipo?')">Excluir</a>
+                </td>
+            </tr>
+        </table>
+        <a href="/home" class="button-home">Voltar para o Inicio</a>
+    </body>
+</html>

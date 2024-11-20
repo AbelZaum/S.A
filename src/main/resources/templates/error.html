@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Erro</title>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+        <style>
+            /* Reset básico */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Poppins', Arial, sans-serif;
+            }
+
+            /* Estilo Geral */
+            body {
+                background-color: #1e1e2f;
+                color: #f4f4f9;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+                min-height: 100vh;
+            }
+
+            /* Cabeçalho */
+            h1 {
+                color: #4cd137;
+                margin-bottom: 20px;
+                text-align: center;
+                font-size: 2.5em;
+            }
+
+            /* Botões e Links */
+            button, a {
+                display: inline-block;
+                background-color: #4cd137;
+                color: #1e1e2f;
+                padding: 10px 20px;
+                margin: 10px 0;
+                border: none;
+                border-radius: 5px;
+                text-decoration: none;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 1em;
+            }
+
+            button:hover, a:hover {
+                background-color: #44bd32;
+                color: #fff;
+            }
+
+            /* Formulários */
+            form {
+                width: 100%;
+                max-width: 400px;
+                background-color: #2c2c3a;
+                padding: 20px;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+                border-radius: 10px;
+                margin: 20px auto;
+            }
+
+            label {
+                font-weight: bold;
+                display: block;
+                margin-bottom: 8px;
+                color: #fbc531;
+            }
+
+            input, select {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border-radius: 5px;
+                border: 1px solid #4cd137;
+                background-color: #2c2c3a;
+                color: #f4f4f9;
+            }
+
+            /* Placeholder Estilo */
+            input::placeholder {
+                color: #7f8fa6;
+                opacity: 0.7;
+            }
+
+            /* Tabelas */
+            table {
+                width: 100%;
+                max-width: 1000px;
+                margin: 20px 0;
+                border-collapse: collapse;
+                background-color: #2c2c3a;
+                color: #f4f4f9;
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            th, td {
+                padding: 15px;
+                text-align: left;
+                border-bottom: 1px solid #4cd137;
+            }
+
+            th {
+                background-color: #4cd137;
+                color: #1e1e2f;
+                font-size: 1.1em;
+            }
+
+            tr:hover {
+                background-color: #3d3d50;
+            }
+
+            /* Links de ação */
+            .action-links a {
+                margin-right: 10px;
+                font-weight: bold;
+            }
+
+            /* Mensagens de Erro e Sucesso */
+            .error-message {
+                color: #e74c3c;
+                font-weight: bold;
+                margin-top: 10px;
+            }
+
+            .success-message {
+                color: #2ecc71;
+                font-weight: bold;
+                margin-top: 10px;
+            }
+
+            /* Navbar */
+            .navbar {
+                width: 100%;
+                max-width: 1200px;
+                background-color: #2c2c3a;
+                padding: 15px 20px;
+                border-radius: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            .navbar a {
+                color: #4cd137;
+                margin-left: 15px;
+                font-weight: bold;
+                font-size: 1.1em;
+                text-decoration: none;
+            }
+
+            .navbar a:hover {
+                color: #f4f4f9;
+            }
+
+            /* Container Centralizado */
+            .container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                max-width: 1200px;
+                padding: 20px;
+            }
+
+            .footer {
+                margin-top: auto;
+                text-align: center;
+                color: #7f8fa6;
+                padding: 10px;
+            }
+
+            /* Responsividade */
+            @media (max-width: 768px) {
+                table {
+                    font-size: 0.9em;
+                }
+
+                button, a {
+                    padding: 8px 15px;
+                    font-size: 0.9em;
+                }
+
+                form {
+                    padding: 15px;
+                }
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Ocorreu um Erro!</h1>
+            <p th:text="${message}"></p>
+            <a href="/home">Voltar para Home</a>
+        </div>
+    </body>
+</html>
