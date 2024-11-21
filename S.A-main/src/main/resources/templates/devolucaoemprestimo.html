@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Devolução de Empréstimo</title>
+        <link rel="stylesheet" href="css/css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <h1>Devolução de Empréstimo</h1>
+        <p>ID: <span th:text="${emprestimo.id}"></span></p>
+        <p>Colaborador: <span th:text="${emprestimo.colaborador.nome}"></span></p>
+        <p>Equipamento: <span th:text="${emprestimo.equipamento.descricao}"></span></p>
+        <p>Data de Empréstimo: <span th:text="${emprestimo.data}"></span></p>
+        <form th:action="@{'/emprestimos/devolucao/' + ${emprestimo.id}}" method="post">
+            <button type="submit">Confirmar Devolução</button>
+        </form>
+        <a href="/emprestimos">Voltar</a>
+        <a href="/home" class="button-home">Voltar para o Inicio</a>
+    </body>
+</html>
