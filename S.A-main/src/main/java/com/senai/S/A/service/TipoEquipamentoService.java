@@ -31,6 +31,7 @@ public class TipoEquipamentoService {
     public TipoEquipamento atualizarTipo(Long id, TipoEquipamento tipoAtualizado) {
         TipoEquipamento tipo = buscarPorId(id);
         tipo.setDescricao(tipoAtualizado.getDescricao());
+        tipo.setTipo(tipoAtualizado.getTipo());
         return tipoEquipamentoRepository.save(tipo);
     }
 

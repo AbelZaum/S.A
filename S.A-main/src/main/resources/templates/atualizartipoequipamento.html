@@ -196,16 +196,28 @@
     </head>
     <body>
         <h1>Atualizar Equipamento</h1>
-        <form th:action="@{'/equipamentos/editar/' + ${equipamento.id}}" th:object="${equipamento}" method="post">
+
+        <!-- Formulário de atualização -->
+        <form th:action="@{'/tipoEquipamento/editar/' + ${tipoEquipamento.id}}" th:object="${tipoEquipamento}" method="post">
+
+            <!-- Campo de descrição -->
             <label>Descrição:</label>
             <input type="text" th:field="*{descricao}" required><br>
+
+            <!-- Campo de tipo (cascata) -->
             <label>Tipo:</label>
             <select th:field="*{tipo}">
-                <option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo.descricao}"></option>
+                <!-- Popula a lista de tipos com o id e descrição -->
+                <option th:each="tipo : ${tipos}" th:value="${tipo.id}" th:text="${tipo.descricao}"></option>
             </select><br>
+
+            <!-- Botão de envio -->
             <button type="submit">Atualizar</button>
         </form>
+
+        <!-- Links de navegação -->
         <a href="/equipamentos">Voltar</a>
-        <a href="/home" class="button-home">Voltar para o Inicio</a>
+        <a href="/home" class="button-home">Voltar para o Início</a>
     </body>
+
 </html>

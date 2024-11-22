@@ -2,6 +2,7 @@ package com.senai.S.A.controller;
 
 import com.senai.S.A.model.TipoEquipamento;
 import com.senai.S.A.service.TipoEquipamentoService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,12 +36,15 @@ public class TipoEquipamentoController {
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEdicao(@PathVariable Long id, Model model) {
         model.addAttribute("tipoEquipamento", tipoEquipamentoService.buscarPorId(id));
+        List<TipoEquipamento> tipos = tipoEquipamentoService.listarTipos(); // Método que retorna a lista de tipos
+        model.addAttribute("tipos", tipos);
         return "atualizartipoequipamento";
     }
 
     @PostMapping("/editar/{id}")
     public String atualizarTipo(@PathVariable Long id, @ModelAttribute TipoEquipamento tipo) {
         tipoEquipamentoService.atualizarTipo(id, tipo);
+
         return "redirect:/tipos-equipamentos";
     }
 
