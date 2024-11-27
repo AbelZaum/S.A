@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Painel de Relatórios</title>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            body {
+                font-family: 'Poppins', Arial, sans-serif;
+                background-color: #f4f4f9;
+                padding: 20px;
+            }
+
+            .chart-container {
+                margin: 20px auto;
+                width: 80%;
+            }
+
+            .kpi {
+                display: flex;
+                justify-content: space-around;
+                margin: 20px 0;
+            }
+
+            .kpi-item {
+                background: #4cd137;
+                padding: 20px;
+                border-radius: 8px;
+                color: white;
+                text-align: center;
+                font-size: 1.2em;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Painel de Relatórios</h1>
+
+        <!-- Indicadores (KPI) -->
+        <div class="kpi">
+            <div class="kpi-item">
+                <p>Total de Empréstimos</p>
+                <h2 th:text="${totalEmprestimos}"></h2>
+            </div>
+            <div class="kpi-item">
+                <p>Percentual de Empréstimos em Atraso</p>
+                <h2 th:text="${percentualAtrasos} + '%'"></h2>
+            </div>
+
+            <div class="kpi-item">
+                <p>Empréstimos em Atraso</p>
+                <h2 th:text="${emprestimosForaPrazo}"></h2>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="emprestimosPorColaborador"></canvas>
+        </div>
+        <div class="chart-container">
+            <canvas id="emprestimosPorTipoEquipamento"></canvas>
+        </div>
+        <div class="chart-container">
+            <canvas id="devolucoesPrazo"></canvas>
+        </div>
+
+        <script>
+            // Gráfico de Empréstimos por Colaborador
+            const emprestimosPorColaboradorData = /*[[${emprestimosPorColaborador}]]*/ [];
+            new Chart(document.getElementById('emprestimosPorColaborador'), {
+                type: 'bar',
+                data: {
+                    labels: emprestimosPorColaboradorData.map(e => e.colaborador),
+                    datasets: [{
+                            label: 'Empréstimos',
+                            data: emprestimosPorColaboradorData.map(e => e.quantidade),
+                            backgroundColor: '#3498db',
+                        }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {display: true, text: 'Empréstimos por Colaborador'}
+                    }
+                }
+            });
+
+            // Gráfico de Empréstimos por Tipo de Equipamento
+            const emprestimosPorTipoEquipamentoData = /*[[${emprestimosPorTipoEquipamento}]]*/ [];
+            new Chart(document.getElementById('emprestimosPorTipoEquipamento'), {
+                type: 'pie',
+                data: {
+                    labels: emprestimosPorTipoEquipamentoData.map(e => e.tipoEquipamento),
+                    datasets: [{
+                            data: emprestimosPorTipoEquipamentoData.map(e => e.quantidade),
+                            backgroundColor: ['#4cd137', '#e74c3c', '#3498db'],
+                        }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {display: true, text: 'Empréstimos por Tipo de Equipamento'}
+                    }
+                }
+            });
+
+            // Gráfico de Devoluções no Prazo
+            const devolucoesData = /*[[${percentualDevolucoes}]]*/ {};
+            new Chart(document.getElementById('devolucoesPrazo'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['No Prazo', 'Fora do Prazo'],
+                    datasets: [{
+                            data: [devolucoesData.noPrazo, devolucoesData.foraPrazo],
+                            backgroundColor: ['#4cd137', '#e74c3c'],
+                        }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {display: true, text: 'Devoluções no Prazo'}
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

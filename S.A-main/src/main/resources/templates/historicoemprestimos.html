@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Histórico de Empréstimos</title>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <h1>Histórico de Empréstimos</h1>
+        <h2 th:text="'Colaborador: ' + ${colaborador.nome}"></h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tipo de Equipamento</th>
+                    <th>Data</th>
+                    <th>Devolução</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="emprestimo : ${historico}">
+                    <td th:text="${emprestimo.id}"></td>
+                    <td th:text="${emprestimo.tipoEquipamento.descricao}"></td>
+                    <td th:text="${#temporals.format(emprestimo.data, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${emprestimo.devolucao != null ? #temporals.format(emprestimo.devolucao, 'dd/MM/yyyy') : 'Pendente'}"></td>
+                    <td th:text="${emprestimo.isForaDoPrazo() ? 'Fora do Prazo' : 'No Prazo'}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="/colaboradores">Voltar para Colaboradores</a>
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lista de Empréstimos</title>
+        <link rel="stylesheet" href="css/css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <h1>Empréstimos de EPIs</h1>
+        <a href="/emprestimos/novo">Registrar Novo Empréstimo</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Colaborador</th>
+                    <th>Tipo de Equipamento</th>
+                    <th>Data</th>
+                    <th>Devolução</th>
+                    <th>Prazo (dias)</th>
+                    <th>Status</th>
+                    <th>Ações</th>      
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="emprestimo : ${emprestimos}">
+                    <td th:text="${emprestimo.id}"></td>
+                    <td th:text="${emprestimo.colaborador.nome}"></td>
+                    <td th:text="${emprestimo.tipoEquipamento.descricao}"></td>
+                    <td th:text="${emprestimo.data != null ? T(java.time.format.DateTimeFormatter).ofPattern('dd/MM/yyyy').format(emprestimo.data) : ''}"></td>
+                    <td th:text="${emprestimo.devolucao != null ? T(java.time.format.DateTimeFormatter).ofPattern('dd/MM/yyyy').format(emprestimo.devolucao) : 'Pendente'}"></td>
+                    <td th:text="${emprestimo.prazo}"></td>
+                    <td th:text="${emprestimo.isForaDoPrazo() ? 'Fora do Prazo' : 'No Prazo'}"></td>
+                    
+                    <td>
+                        <a th:href="@{'/emprestimos/devolucao/' + ${emprestimo.id}}">Devolver</a>
+                        <a th:href="@{'/emprestimos/excluir/' + ${emprestimo.id}}" onclick="return confirm('Deseja excluir este empréstimo?')">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="/home" class="button-home">Voltar para o Inicio</a>
+    </body>
+</html>
